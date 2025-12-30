@@ -16,25 +16,28 @@ body {
 
 /* Navbar */
 .navbar {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 1rem 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    border-bottom: none;
+    padding: 1.5rem 0;
     transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.85);
+    /* Solid-ish black on scroll */
+    padding: 0.8rem 0;
+    backdrop-filter: blur(10px);
 }
 
 .navbar-brand {
     font-weight: 600;
     font-size: 1.25rem;
-    color: #1a1a1a !important;
+    color: #fff !important;
     letter-spacing: -0.5px;
 }
 
 .nav-link {
-    color: #666 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     font-weight: 500;
     font-size: 0.9rem;
     padding: 0.5rem 1rem !important;
@@ -42,7 +45,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #1a1a1a !important;
+    color: #fff !important;
 }
 
 .navbar-toggler {
@@ -56,6 +59,7 @@ body {
 
 .navbar-toggler i {
     font-size: 1.5rem;
+    color: #fff;
 }
 
 /* Hero */
@@ -90,10 +94,7 @@ body {
     filter: brightness(1.35);
 }
 
-.profile-photo:hover {
-    transform: scale(1.02);
-    filter: brightness(1.4);
-}
+/* Removed hover effect on profile photo */
 
 .hero-label {
     font-size: 0.85rem;
@@ -145,7 +146,6 @@ body {
 .btn-google-dark:hover {
     background: #333;
     color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .btn-google-outline {
@@ -179,7 +179,6 @@ body {
 
 .btn-dark:hover {
     background: #333;
-    transform: translateY(-2px);
 }
 
 .btn-outline-dark {
@@ -194,7 +193,6 @@ body {
 .btn-outline-dark:hover {
     background: #1a1a1a;
     color: #fff;
-    transform: translateY(-2px);
 }
 
 /* Sections */
@@ -234,8 +232,6 @@ body {
 
 .card-minimal:hover {
     border-color: #ddd;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-    transform: translateY(-4px);
 }
 
 .card-minimal.featured {
@@ -259,23 +255,30 @@ body {
 
 .project-img-container {
     width: 100%;
-    height: 180px;
+    height: 200px;
+    /* Slightly taller for better visibility */
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 1.5rem;
     border: 1px solid #eee;
+    background: #fdfdfd;
+    /* Light background for 'contain' mode */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* Mostra a foto TODA sem cortes */
     transition: transform 0.5s ease;
 }
 
-.card-minimal:hover .project-img {
-    transform: scale(1.05);
-}
+/* Removed project img hover zoom */
 
 .card-icon {
     width: 50px;
@@ -570,6 +573,36 @@ body {
 
 /* Responsive */
 @media (max-width: 991px) {
+    .navbar {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%) !important;
+        backdrop-filter: none;
+    }
+
+    /* Fica escuro apenas quando scrollar ou quando o menu estiver aberto */
+    .navbar.scrolled,
+    .navbar:has(.navbar-collapse.show) {
+        background: rgba(0, 0, 0, 0.98) !important;
+        backdrop-filter: blur(20px);
+    }
+
+    .navbar-collapse {
+        background: transparent;
+        /* A cor sólida virá do container acima */
+        padding: 1rem 0 2rem;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+        padding: 1rem 0 !important;
+        font-size: 1.1rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
     .hero {
         padding-top: 80px;
         /* Space for navbar */
@@ -674,10 +707,47 @@ body {
     .section-title {
         font-size: 2rem;
     }
+
+    /* Cards menores no mobile */
+    .card-minimal,
+    .contact-item {
+        padding: 1.25rem !important;
+    }
+
+    .contact-item i {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .contact-item h6 {
+        font-size: 0.7rem !important;
+    }
+
+    .contact-item a {
+        font-size: 0.9rem !important;
+    }
+
+    .system-logo {
+        height: 30px !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .card-minimal h4,
+    .card-minimal h5 {
+        font-size: 1.1rem !important;
+    }
+
+    .card-minimal p {
+        font-size: 0.9rem !important;
+    }
 }
 
 @media (max-width: 480px) {
     .profile-photo {
         max-height: 280px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
     }
 }
