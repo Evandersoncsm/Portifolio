@@ -45,20 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Fade in animation
+    // Fade in animation (opacity-only to keep CSS hover transforms working)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.exp-item, .card-minimal, .skill-box, .contact-item').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.5s ease';
+    document.querySelectorAll('.exp-item, .card-minimal, .skill-box, .contact-item, .course-item, .cert-item').forEach(el => {
+        el.classList.add('reveal');
         observer.observe(el);
     });
 });
